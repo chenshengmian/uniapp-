@@ -141,15 +141,15 @@
 					0.00
 				</el-form-item> -->
 				<el-form-item label="TWG三赢模式 :" prop="paymentType" :label-width="labelw">
-					<el-radio-group v-model="ruleForm.paymentType" @change="handlePaymentTypeChange">
-						<el-radio label="0">参与</el-radio>
-						<el-radio label="1">不参与</el-radio>
+					<el-radio-group v-model="ruleForm.paymentType" >
+						<el-radio  :label="0" border >参与</el-radio>
+						<el-radio  :label="1" border >不参与</el-radio>
 					</el-radio-group>
 				</el-form-item>
 				<el-form-item label="会员等级:" prop="membershipLevel" :label-width="labelw">
 					<el-radio-group v-model="ruleForm.membershipLevel" >
 						<block v-for="item in ruleForm.datas">
-							<el-radio  :label="item.id" :key="item.id">
+							<el-radio border :label="item.id" :key="item.id">
 								{{ item.levelname }}
 							</el-radio>
 						</block>
@@ -456,6 +456,7 @@
 	
 	*{
 		font-size: 26rpx;
+		touch-action: pan-y;
 	}
 	.dome {
 		display: flex;
