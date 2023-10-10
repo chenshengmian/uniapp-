@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "product-detail-el-table-column-default": "/components/product-purchase/product-detail-el-table-column-default"
+  },
+  "component": true
+}

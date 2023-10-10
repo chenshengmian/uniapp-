@@ -1,0 +1,59 @@
+
+.bonusleft ._div{
+	margin-top: 18rpx;
+}
+.bonusleft{
+	margin-left: 400rpx;
+}
+.tabletitle{
+	font-size: 26rpx;
+	border-bottom: 1rpx solid #E9ECEF;
+	display: flex;
+	justify-content: center;
+	margin-top: 30rpx;
+	margin-bottom: 30rpx;
+}
+.bonustitle {
+	display: flex;
+	justify-content: center;
+}
+.bonuscontent {
+	display: grid;
+	grid-template-columns: 50% 50%;
+	font-size: 26rpx;
+}
+.bonusright ._span {
+	display: inline-block;
+}
+.bonusright {
+	display: flex;
+	justify-content: space-between;
+	border-bottom: 1rpx solid #E9ECEF;
+	padding: 20rpx;
+}
+.month,
+.year {
+	margin-right: 20rpx;
+}
+.yearmonth {
+	display: grid;
+	grid-template-columns: 3% 40% 10% ;
+}
+@media screen and (max-width: 990px) {
+.yearmonth {
+		grid-template-columns: 1fr;
+}
+.yearmonth ._div{
+		margin-top: 10rpx;
+}
+.bonuscontent{
+		display: grid;
+		grid-template-columns: 1fr;
+		width: 100%;
+}
+.bonusleft{
+		margin-left: 20rpx;
+}
+}
+
+

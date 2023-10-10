@@ -1,0 +1,24 @@
+
+.el-card{
+	width:800rpx;
+}
+.container {
+	display: flex; /* 使用flex布局 */
+	justify-content: center; /* 在主轴上水平居中 */
+	align-items: center; /* 在交叉轴上垂直居中 */
+	height: 100vh; /* 设置容器高度为全屏高度 */
+	background-color: #F5F5F5;
+}
+.footer{
+	position: fixed;
+	bottom: 300rpx;
+	font-size: 24rpx;
+	text-align: center;
+	width: 100%;
+}
+@media screen and (max-width: 990px) {
+.footer{
+		bottom: 180rpx;
+}
+}
+

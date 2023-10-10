@@ -1,0 +1,21 @@
+{
+  "navigationBarTitleText": "FELEMENT|",
+  "usingComponents": {
+    "my-drawer": "/components/my-drawer/my-drawer",
+    "my-home": "/components/my-home/my-home",
+    "wallet-records": "/components/wallet-records/wallet-records",
+    "withdraw-money": "/components/withdraw-money/withdraw-money",
+    "withdrawal-status": "/components/withdrawal-status/withdrawal-status",
+    "bonus-description": "/components/bonus-description/bonus-description",
+    "reseller-registration": "/components/reseller-registration/reseller-registration",
+    "product-purchase": "/components/product-purchase/product-purchase",
+    "purchase-history": "/components/purchase-history/purchase-history",
+    "performance-reports": "/components/performance-reports/performance-reports",
+    "member-tree": "/components/member-tree/member-tree",
+    "binary-tree": "/components/binary-tree/binary-tree",
+    "login-password": "/components/login-password/login-password",
+    "wallet-password": "/components/wallet-password/wallet-password",
+    "know-your-customer": "/components/know-yourCustomer/know-yourCustomer",
+    "product-detail": "/components/product-purchase/product-detail"
+  }
+}

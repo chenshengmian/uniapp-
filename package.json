@@ -1,0 +1,14 @@
+{
+  "dependencies": {
+    "axios": "^1.5.0",
+    "blueimp-md5": "^2.19.0",
+    "bootstrap": "^5.3.2",
+    "crypto-js": "^4.1.1",
+    "echarts": "^5.4.3",
+    "element-ui": "^2.15.14",
+    "fastclick": "^1.0.6"
+  },
+  "devDependencies": {
+    "babel-plugin-component": "^1.1.1"
+  }
+}

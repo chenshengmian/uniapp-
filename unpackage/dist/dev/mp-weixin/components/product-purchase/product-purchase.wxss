@@ -1,0 +1,10 @@
+
+.equal-width-column {
+	width: 100%;
+}
+.sumbit{
+	margin-top: 20rpx;
+	display: flex;
+	justify-content: center;
+}
+
