@@ -12,7 +12,7 @@ request.interceptors.request.use(
 			// console.log(config.url)
 		} else {
 			const { refershtoken,userinfo,access_token } = uni.getStorageSync('tokenArray')
-			config.headers['Authorization'] = `Bearer ${access_token}`
+			// config.headers['Authorization'] = `Bearer ${access_token}`
 			const refid = {
 				'refershtoken': refershtoken,
 				'userid': userinfo,
@@ -32,7 +32,7 @@ request.interceptors.request.use(
 						'access_token': res.data.result.access_token
 					}
 					uni.setStorageSync('tokenArray',newrefid)	
-					// config.headers['Authorization'] = `Bearer ${res.data.result.access_token}`
+					config.headers['Authorization'] = `Bearer ${res.data.result.access_token}`
 					// console.log(config)
 				})
 				.catch(err => {

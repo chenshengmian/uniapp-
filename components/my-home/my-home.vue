@@ -51,12 +51,12 @@
 					<div class="fristcardbottom">Millionaire + Challenge Date</div>
 					<div class="fristcardbottomtwo">28/09/2023</div>
 				</div>
-				<div>
+				<!-- <div>
 					<div class="fristcardbottom">Referral Link</div>
 					<div class="fristcardbottomtwo"><a
 							href="https://ioffice.felement.vip/SignUp/?r=MY60122122378">https://ioffice.felement.vip/SignUp/?r=MY60122122378</a>
 					</div>
-				</div>
+				</div> -->
 			</el-card>
 			<el-card class="box-card second">
 				<div style="font-size: 28rpx;font-weight: 500;color: #6F7078;">
@@ -121,8 +121,10 @@
 					Monthly Earnings (MYR)
 				</div>
 			</el-card>
+		
+			
 		</div>
-		<div>
+		<div style="width: 100%;">
 			<el-card class="box-card news">
 				<div slot="header" class="clearfix headers">
 					<div class="yearmonth">
@@ -303,7 +305,8 @@
 	.grid-container {
 		display: grid;
 		grid-template-rows: 250rpx 1500rpx;
-		grid-template-columns: 29.5% 22% 22% 22%;
+		grid-template-columns: 26.5% 23% 23% 23%;
+		width: 100%;
 		gap: 50rpx;
 	}
 

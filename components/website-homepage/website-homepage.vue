@@ -17,6 +17,9 @@
 							<el-button class="imgsreach" slot="append" icon="el-icon-search"></el-button>
 						</el-input>
 					</div>
+					<div>
+						<el-button type="primary" @tap="handlelogo">登陆</el-button>
+					</div>
 				</div>
 
 			</el-header>
@@ -130,7 +133,11 @@
 			window.removeEventListener('resize', this.handleResize); // 移除监听事件
 		},
 		methods: {
-			
+			handlelogo(){
+				uni.navigateTo({
+					url:'/pages/userLogin/userLogin'
+				})
+			},
 			changePhoto(i){
 				console.log(i)
 				let _this = this
@@ -409,6 +416,9 @@
 	}
 
 	@media screen and (max-width: 990px) {
+		/* .el-carousel{
+			height: 300rpx;
+		} */
 		.el-footer {
 			width: 100%;
 		}

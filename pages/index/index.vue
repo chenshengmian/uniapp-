@@ -250,7 +250,7 @@
 				drawbg:'#FFFFFF',
 				nodeid:'',
 				todatail:{},
-				maindisable:true,
+				maindisable:false,
 				username:''
 			}
 		},

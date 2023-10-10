@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view style="background-color: #F5F5F5;">
 		<div class="container">
 			<el-card class="box-card">
 				<div style="width: 100%;display: flex;justify-content: center;"><img src="../../static/img/logo.png"
