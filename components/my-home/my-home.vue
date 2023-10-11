@@ -3,28 +3,34 @@
 		<div class="grid-container">
 			<el-card class="box-card frist">
 				<div class="fristcard">
-					<el-avatar class="atvatone" :src="avatarUrl" style="width: 300rpx;height: 300rpx;background-color: #EBBD6A;" />
+					<el-avatar class="atvatone" :src="avatarUrl"
+						style="width: 300rpx;height: 300rpx;background-color: #EBBD6A;" />
 					<div>
-						<span class="spanone" style="font-size: 48rpx;color: #5B626B;margin-top: 70rpx;display:inline-block "><b>TAN LAY
+						<span class="spanone"
+							style="font-size: 48rpx;color: #5B626B;margin-top: 70rpx;display:inline-block "><b>TAN LAY
 								FONG</b></span><br />
-						<span style="color:#74626B;font-size: 30rpx;font-weight: 500;">MY60122122378</span><br />
-						<span style="color:#60626B;font-weight: 600;">Five Fortunes Package</span><br />
+						<span style="color:#74626B;font-size: 30rpx;font-weight: 500;">{{nickname}}</span><br />
+						<!-- <span style="color:#60626B;font-weight: 600;">Five Fortunes Package</span><br /> -->
 					</div>
 				</div>
 				<div style="margin-top: 60rpx;">
-					<div class="fristcardbottom">Maintained Month</div>
-					<div class="fristcardbottomtwo">2023-9</div>
+					<div class="fristcardbottom">Register Point</div>
+					<div class="fristcardbottomtwo">MYR {{registerPoint}}</div>
 				</div>
 				<div>
-					<div class="fristcardbottom">现金积分 (CP)</div>
-					<div class="fristcardbottomtwo">MYR 0.00</div>
+					<div class="fristcardbottom">Joining Date</div>
+					<div class="fristcardbottomtwo">{{joiningDate}}</div>
 				</div>
 				<div>
-					<div class="fristcardbottom">旅游积分 (TP)</div>
-					<div class="fristcardbottomtwo">MYR 0.00</div>
+					<div class="fristcardbottom">Product Point</div>
+					<div class="fristcardbottomtwo">MYR  {{credit5}}</div>
 				</div>
 				<div>
-					<div class="fristcardbottom">Product Point (PP)</div>
+					<div class="fristcardbottom">Total Cash Point</div>
+					<div class="fristcardbottomtwo">MYR    {{credit2}}</div>
+				</div>
+				<!-- <div>
+					<div class="fristcardbottom">Product Point (PP)</div> 
 					<div class="fristcardbottomtwo">MYR 0.00</div>
 				</div>
 				<div>
@@ -50,7 +56,7 @@
 				<div>
 					<div class="fristcardbottom">Millionaire + Challenge Date</div>
 					<div class="fristcardbottomtwo">28/09/2023</div>
-				</div>
+				</div> -->
 				<!-- <div>
 					<div class="fristcardbottom">Referral Link</div>
 					<div class="fristcardbottomtwo"><a
@@ -76,7 +82,7 @@
 				</div>
 				<div style="margin-top: 20rpx;font-size: 40rpx;font-weight: 600;color: #5B626B;">0.00</div>
 			</el-card>
-			<el-card class="box-card">
+			<el-card class="box-card wu">
 				<div style="font-size: 28rpx;font-weight: 500;color: #6F7078;">
 					Bonus Type (MYR)
 				</div>
@@ -113,7 +119,7 @@
 				<div style="margin-top: 400rpx;color: #ADB5BD;">
 					<div style="display: flex;justify-content: center;font-size: 40rpx;font-weight: 800;">Retail Bonus
 					</div>
-					<div style="display: flex;justify-content: center;font-size: 40rpx;">0</div>
+					<div style="display: flex;justify-content: center;font-size: 40rpx;">{{RetailBonus}}</div>
 				</div>
 			</el-card>
 			<el-card class="box-card sex">
@@ -121,8 +127,8 @@
 					Monthly Earnings (MYR)
 				</div>
 			</el-card>
-		
-			
+
+
 		</div>
 		<div style="width: 100%;">
 			<el-card class="box-card news">
@@ -134,14 +140,14 @@
 						<div class="gt" style="display: flex;">
 							<div class="monthright" style="font-size: 20rpx;line-height: 72rpx;">年-月：</div>
 							<div class="year">
-								<el-select v-model="year" slot="prepend" placeholder="请选择" size="medium">
+								<el-select v-model="year" slot="prepend" placeholder="请选择" size="medium" @change="gettable">
 									<div v-for="(item,index) in yearArr">
-										<el-option :label="item" :value="index"></el-option>
+										<el-option :label="item" :value="item"></el-option>
 									</div>
 								</el-select>
 							</div>
 							<div class="month">
-								<el-select v-model="mouth" slot="prepend" placeholder="请选择" size="medium">
+								<el-select v-model="mouth" slot="prepend" placeholder="请选择" size="medium" @change="gettable">
 									<div v-for="o in 12" :key="o" class="text item">
 										<el-option :label="o" :value="o"></el-option>
 									</div>
@@ -150,7 +156,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="lastcard">					
+				<announcement-table :year="year" :mouth='mouth'/>
+				<div class="lastcard">
 					<div style="font-size: 20rpx;font-weight: 600;">下载中心</div>
 					<div><a
 							href="https://ioffice.felement.vip/Content2/uploads/20230303091534FELEMENT-Distributors-Policy--Procedures.pdf">
@@ -179,7 +186,11 @@
 </template>
 
 <script>
+	import AnnouncementTable from '@/components/announcement-table/announcement-table.vue'
 	export default {
+		components:{
+			AnnouncementTable
+		},
 		name: "my-home",
 		data() {
 			return {
@@ -187,10 +198,17 @@
 				mouth: '',
 				year: '',
 				yearArr: [],
+				joiningDate: '',
+				RetailBonus:'',
+				nickname:'',
+				credit2:'',
+				registerPoint:'',
+				credit5:'',
 			};
 		},
 		mounted() {
 			this.getMounth()
+			this.getinfo()
 		},
 		methods: {
 			getMounth() {
@@ -200,22 +218,65 @@
 				const mouthNew = current.getMonth()
 				this.mouth = mouthNew + 1
 				this.year = yearNew
+			},
+			getinfo() {
+				let _this = this
+				_this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.infomes')
+					.then(res => {
+						console.log(res)
+						const {
+							result: {
+								jointime,
+								nickname,
+								childrenordermoney,
+								commissionmoney,
+								credit2,
+								credit1,
+								credit5,
+								flevelchildrennum,
+								bonuslevelmes:{
+									bonus,
+									level,
+									levelname,
+									levelname_en,
+									
+								}
+							}
+						} = res
+						_this.joiningDate = jointime
+						_this.nickname = nickname
+						_this.credit2 = credit2
+						_this.registerPoint = credit1
+						_this.credit5 = credit5
+					})
+					.catch(err => {
+						console.log(err)
+					})
 			}
 		}
 	}
 </script>
 
 <style>
-	.lastcard{
+	/* .frist{
+		margin-right: 40rpx;
+	} */
+	/* .grid-container .box-card{
+		padding: 20rpx;
+	} */
+	.lastcard {
 		font-size: 20rpx;
 	}
-	.lastcard div{
+
+	.lastcard div {
 		margin-top: 24rpx;
 	}
-	.lastcard div a{
+
+	.lastcard div a {
 		text-decoration: none;
 		color: #8273BE;
 	}
+
 	.headers {
 		/* display: flex;
 		justify-content: space-between; */
@@ -277,6 +338,20 @@
 		height: 100%;
 	}
 
+	/* .second{
+		margin-right: 40rpx;
+	}
+	.three{
+		margin-right: 40rpx;
+	}
+	.wu{
+		margin-right: 40rpx;
+		margin-top: 40rpx;
+	} */
+	/* .sex{
+		margin-top: 40rpx;
+	} */
+
 	.second::after,
 	.three::after,
 	.four::after {
@@ -305,9 +380,9 @@
 	.grid-container {
 		display: grid;
 		grid-template-rows: 250rpx 1500rpx;
-		grid-template-columns: 26.5% 23% 23% 23%;
-		width: 100%;
-		gap: 50rpx;
+		grid-template-columns: 31% 23% 23% 23%;
+		/* width: 95%; */
+		/* gap: 50rpx; */
 	}
 
 	.box-card {
@@ -364,12 +439,14 @@
 
 		}
 	}
+
 	@media screen and (min-width: 990px) and (max-width: 1500px) {
 		.fristcard {
 			display: grid;
 			grid-template-columns: 1fr;
 		}
-		.atvatone span{
+
+		.atvatone span {
 			width: 200rpx;
 			height: 200rpx;
 		}

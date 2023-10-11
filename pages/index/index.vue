@@ -20,6 +20,7 @@
 						<el-menu-item index="2-2">电子钱包取款</el-menu-item>
 						<el-menu-item index="2-3">电子钱包取款状况</el-menu-item>
 						<el-menu-item index="2-4">奖金说明</el-menu-item>
+						<el-menu-item index="2-5">KYC</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
 				<el-menu-item index="3">
@@ -84,14 +85,14 @@
 											</el-dropdown-item>
 										</el-row>
 									</div>									
-									<!-- <div @tap="hanldeChangeEwalletspass">
+									<div @tap="hanldeChangeEwalletspass">
 										<el-row>
 											<el-dropdown-item>
 												<i class="el-icon-user-solid"></i>修改电子钱包密码
 											</el-dropdown-item>
 										</el-row>
 									</div>
-									<div @tap="hanldeKYC">
+									<!-- <div @tap="hanldeKYC">
 										<el-row>
 											<el-dropdown-item>
 												<i class="el-icon-user-solid"></i>KYC
@@ -182,7 +183,7 @@
 		</el-container>
 		<div v-else style="display: flex;justify-content: center;width: 100%;background-color: #F5F5F5;">
 			<div class="homepage" >
-				<website-homepage/>
+				<website-homepage @getstatus="getstatus"/>
 			</div>
 			
 		</div>
@@ -254,7 +255,11 @@
 				username:''
 			}
 		},
-		mounted() {
+		onLoad(param) {
+			
+		},
+		mounted(param) {
+			// console.log(param)
 			this.login()
 			// console.log(uni.getStorageSync('tokenArray'))
 			this.getScreenWidth(); // 初始化获取屏幕宽度和缩放比例
@@ -264,6 +269,14 @@
 			window.removeEventListener('resize', this.handleResize); // 移除监听事件
 		},
 		methods: {
+			getstatus(param){
+				console.log('主页状态',param)
+				// if(param==100){
+				// 	self.maindisable = false
+				// }else{
+				// 	self.maindisable = true
+				// }
+			},
 			newindex(param){
 				this.index = param
 				// console.log(param)
@@ -366,9 +379,10 @@
 								title: message
 							})
 							uni.clearStorageSync();
-							uni.navigateTo({
-								url: '/pages/userLogin/userLogin'
-							})
+							self.maindisable = false
+							// uni.navigateTo({
+							// 	url: '/pages/userLogin/userLogin'
+							// })
 						} else {
 
 						}

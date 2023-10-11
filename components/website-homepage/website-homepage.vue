@@ -124,6 +124,7 @@
 			};
 		},
 		mounted() {
+			this.login()
 			this.getcateList()
 			this.getScreenWidth(); // 初始化获取屏幕宽度和缩放比例
 			window.addEventListener('resize', this.handleResize); // 监听窗口大小变化
@@ -133,6 +134,20 @@
 			window.removeEventListener('resize', this.handleResize); // 移除监听事件
 		},
 		methods: {
+			login(){
+				let _this = this
+				_this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member')
+					.then(res => {
+						console.log('登录状态',res)
+						const {
+							status
+						} = res
+						_this.$emit('status',status)
+					})
+					.catch(err => {
+						console.log(err)
+					})
+			},
 			handlelogo(){
 				uni.navigateTo({
 					url:'/pages/userLogin/userLogin'
