@@ -6,7 +6,7 @@
 			  :visible.sync="centerDialogVisible"
 			  :width="width"
 			  >
-			  <span>{{tanccontent}}</span>
+			  <div style="height: 800rpx;overflow-y: scroll;">{{tanccontent}}</div>
 			  <span slot="footer" class="dialog-footer">
 			   <!-- <el-button @click="centerDialogVisible = false">取 消</el-button>-->
 			    <el-button type="primary" @click="changeads" size="mini">关闭弹窗不再显示</el-button> 
@@ -27,7 +27,7 @@
 						<span slot="title" v-if="disable">电子钱包</span>
 					</template>
 					<el-menu-item-group>
-						<span slot="title">电子钱包</span>
+						<!-- <span slot="title">电子钱包</span> -->
 						<el-menu-item index="2-1">电子钱包历史记录</el-menu-item>
 						<el-menu-item index="2-2">电子钱包取款</el-menu-item>
 						<el-menu-item index="2-3">电子钱包取款状况</el-menu-item>
@@ -270,13 +270,15 @@
 				tanccontent:''
 			}
 		},
-		onLoad(param) {
-			
-		},
 		mounted(param) {
-			// console.log(param)
+			// console.log(1111)
 			this.login()
 			// console.log(uni.getStorageSync('tokenArray'))
+			this.getScreenWidth(); // 初始化获取屏幕宽度和缩放比例
+			window.addEventListener('resize', this.handleResize); // 监听窗口大小变化
+		},
+		onShow() {
+			this.login()
 			this.getScreenWidth(); // 初始化获取屏幕宽度和缩放比例
 			window.addEventListener('resize', this.handleResize); // 监听窗口大小变化
 		},
@@ -314,19 +316,19 @@
 				this.index = param
 				// console.log(param)
 			},
-			login() {
+			async login() {
 				let self = this
 				this.$axios.post('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.agr')
 					.then(res => {
-						console.log('弹窗',res)
+						// console.log('弹窗',res)
 						const { result:{agrcontent,content} } = res
-						self.tanccontent = agrcontent
+						self.tanccontent = content
 						
 					})
 					.catch(err => {
 						console.log(err)
 					})
-				this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member')
+				await this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member')
 					.then(res => {
 						// console.log('登录状态',res)
 						const {
@@ -411,17 +413,20 @@
 							status
 						} = res
 						if (status == 1) {
+							uni.clearStorageSync();
 							const {
 								result: {
 									message
 								}
 							} = res
-							uni.showToast({
-								icon: 'success',
-								title: message
-							})
-							uni.clearStorageSync();
 							self.maindisable = false
+							self.$message({
+								message: message,
+								center: true
+							});
+							
+							
+							// self.maindisable = false
 							// uni.navigateTo({
 							// 	url: '/pages/userLogin/userLogin'
 							// })
@@ -701,5 +706,21 @@
 		text-align: center;
 		font-size: 26rpx;
 		color: rgb(91, 98, 107);
+	}
+	/* 设置滚动条的轨道样式 */
+	::-webkit-scrollbar {
+	  width: 8px; /* 滚动条宽度 */
+	}
+	
+	/* 设置滚动条的滑块样式 */
+	::-webkit-scrollbar-thumb {
+	  background-color: #409EFF; /* 滑块背景颜色 */
+	  border-radius: 4px; /* 滑块圆角 */
+	}
+	
+	/* 设置滚动条的滑道样式 */
+	::-webkit-scrollbar-track {
+	  background-color: #f1f1f1; /* 滑道背景颜色 */
+	  border-radius: 4px; /* 滑道圆角 */
 	}
 </style>

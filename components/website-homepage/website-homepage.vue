@@ -33,11 +33,18 @@
 						</el-tabs>
 						<div class="carousel-container">
 							<el-carousel :interval="3000" arrow="always">
-								<el-carousel-item v-for="item in carouselmap" :key="item">
+								<el-carousel-item v-for="item in carouselmap" style="width: 100%;height: 100%;">
 									<!-- <h3>{{ item }}</h3> -->
 									<img :src="item.thumb" alt="" class="carousel-image">
 								</el-carousel-item>
 							</el-carousel>
+						</div>
+
+						<div class="scrolling-container" style="background-color: #E8F3FE;margin:20rpx 0rpx;height: 80rpx;line-height: 80rpx;">
+							<div :class="['subtitle-item', { 'hidden': index !== currentIndex }]"
+								v-for="(subtitle, index) in subtitles" :key="index">
+								{{ subtitle }}
+							</div>
 						</div>
 
 						<div style="margin: 20rpx 0rpx;">
@@ -73,7 +80,7 @@
 								<div style="width: 40%;display:flex;justify-content: center;margin: 30rpx;">
 									<img :src="imgt">
 								</div>
-								<div  style="width: 44%;">
+								<div style="width: 44%;">
 									<block v-for="(item,i) in imgarr">
 										<img :src="item" @click="changePhoto(i)" style="width: 50%;">
 									</block>
@@ -81,8 +88,8 @@
 							</div>
 							<div>
 								<h4>{{title}}</h4>
-								<div style="color: #b4b2b2;margin-top: 20rpx;">库存：  {{total}}</div>
-								<div style="color: red;margin-top: 20rpx;">价格：  {{price}}</div>
+								<div style="color: #b4b2b2;margin-top: 20rpx;">库存： {{total}}</div>
+								<div style="color: red;margin-top: 20rpx;">价格： {{price}}</div>
 								<el-button @tap="resert" size="mini" style="margin-top: 20rpx;">返回主页</el-button>
 							</div>
 						</div>
@@ -115,15 +122,18 @@
 				counttotal: 0,
 				prounddata: '',
 				homediable: true,
-				imgt:'',
-				title:'',
-				total:'',
-				price:'',
-				imgt:'',
-				imgarr:[],
+				imgt: '',
+				title: '',
+				total: '',
+				price: '',
+				imgt: '',
+				imgarr: [],
+				subtitles: [], // 字幕数组
+				currentIndex: 0 // 当前显示的字幕索引
 			};
 		},
 		mounted() {
+			this.showSubtitles();
 			this.login()
 			this.getcateList()
 			this.getScreenWidth(); // 初始化获取屏幕宽度和缩放比例
@@ -134,48 +144,63 @@
 			window.removeEventListener('resize', this.handleResize); // 移除监听事件
 		},
 		methods: {
-			login(){
+			showSubtitles() {
+				let _this = this
+				setInterval(() => {
+					_this.currentIndex = (_this.currentIndex + 1) % _this.subtitles.length;
+					console.log(_this.currentIndex)
+				}, 5000); // 设置滚动间隔时间
+			},
+
+			login() {
 				let _this = this
 				_this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member')
 					.then(res => {
-						console.log('登录状态',res)
+						// console.log('登录状态',res)
 						const {
 							status
 						} = res
-						_this.$emit('status',status)
+						_this.$emit('status', status)
 					})
 					.catch(err => {
 						console.log(err)
 					})
 			},
-			handlelogo(){
+			handlelogo() {
 				uni.navigateTo({
-					url:'/pages/userLogin/userLogin'
+					url: '/pages/userLogin/userLogin'
 				})
 			},
-			changePhoto(i){
+			changePhoto(i) {
 				console.log(i)
 				let _this = this
 				_this.imgt = _this.imgarr[i]
 			},
-			resert(){
+			resert() {
 				this.homediable = true
 			},
 			handelDetail(id) {
 				console.log(id)
 				let _this = this
 				_this.homediable = false
-				_this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.home.goodsdetail&id='+id)
-					.then(res=>{
+				_this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.home.goodsdetail&id=' + id)
+					.then(res => {
 						console.log(res)
-						const { result:{title,productprice,total,thumb_url} } = res
+						const {
+							result: {
+								title,
+								productprice,
+								total,
+								thumb_url
+							}
+						} = res
 						_this.title = title
 						_this.price = productprice
 						_this.total = total
 						_this.imgarr = thumb_url
 						_this.imgt = thumb_url[0]
 					})
-					.catch(err=>{
+					.catch(err => {
 						console.log(err)
 					})
 			},
@@ -224,16 +249,12 @@
 								list
 							}
 						} = res
+						let ad = []
 						for (let i = 0; i < list.length; i++) {
-							// console.log(list[0])
-							_this.$notify({
-								title: list[i].title,
-								message: `<p>更新时间：${list[i].createtime}</p>` + list[i].detail +
-									`<img src=${list[i].thumb}>`,
-								dangerouslyUseHTMLString: true,
-								duration: 0
-							});
+							ad.push(list[i].title)
 						}
+						console.log(ad)
+						_this.subtitles = ad
 					})
 					.catch(err => {
 						console.log(err)
@@ -264,7 +285,7 @@
 				_this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.home.goodslist&page=' + _this
 						.currentPage + '&pagesize=' + _this.pageSize + '&cate=' + _this.cate)
 					.then(res => {
-						console.log(res)
+						// console.log(res)
 						const {
 							status,
 							result: {
@@ -309,23 +330,65 @@
 	}
 </script>
 
-<style>
-	
+<style scoped>
+	.subtitle-item {
+		color: #7dbcfc;
+		white-space: nowrap;
+		overflow: hidden;
+		animation: scroll-left 10s linear;
+		animation-fill-mode: forwards;
+		width: 100%;
+	}
+
+	.hidden {
+		display: none;
+	}
+
+	@keyframes scroll-left {
+		0% {
+			transform: translateX(100%);
+		}
+
+		100% {
+			transform: translateX(-100%);
+		}
+	}
+
+
+
+
+	.announcement-item {
+		flex-shrink: 0;
+		padding: 0 10px;
+		height: 100%;
+		line-height: 50px;
+		background-color: #f5f5f5;
+	}
+
+	.announcement {
+		height: 50px;
+		line-height: 50px;
+		text-align: center;
+		background-color: #f5f5f5;
+	}
+
 	.image-container {
-	  display: flex;
-	  flex-wrap: wrap;
+		display: flex;
+		flex-wrap: wrap;
 	}
-	
+
 	.product-image {
-	  width: 200px;
-	  height: 200px;
-	  object-fit: cover;
-	  transition: transform 0.3s;
+		width: 200px;
+		height: 200px;
+		object-fit: cover;
+		transition: transform 0.3s;
 	}
-	
+
 	.product-image:hover {
-	  transform: scale(1.2); /* 鼠标悬停时放大图片 */
+		transform: scale(1.2);
+		/* 鼠标悬停时放大图片 */
 	}
+
 	.el-footer {
 		height: 120rpx;
 		position: fixed;
@@ -376,6 +439,28 @@
 		width: 100% !important;
 	}
 
+	/* 设置滚动条的轨道样式 */
+	::-webkit-scrollbar {
+		width: 8px;
+		/* 滚动条宽度 */
+	}
+
+	/* 设置滚动条的滑块样式 */
+	::-webkit-scrollbar-thumb {
+		background-color: #409EFF;
+		/* 滑块背景颜色 */
+		border-radius: 4px;
+		/* 滑块圆角 */
+	}
+
+	/* 设置滚动条的滑道样式 */
+	::-webkit-scrollbar-track {
+		background-color: #f1f1f1;
+		/* 滑道背景颜色 */
+		border-radius: 4px;
+		/* 滑道圆角 */
+	}
+
 	.input-with-select .el-input-group__prepend {
 		background-color: #fff;
 	}
@@ -419,6 +504,7 @@
 		/* 适应方式，可根据需求选择合适的值，如：contain、cover、fill 等 */
 	}
 
+
 	.el-menu {
 		display: flex;
 		justify-content: space-between;
@@ -429,13 +515,16 @@
 		justify-content: center;
 		margin: 35rpx 0rpx;
 	}
-	
-	/* .el-carousel{
-		width: 100%;
-		padding-bottom: 50%;
-	} */
-	
+
 	@media screen and (max-width: 990px) {
+		/deep/.el-carousel__container {
+			height: 300rpx;
+		}
+
+		.el-carousel {
+			height: 300rpx;
+		}
+
 		.el-footer {
 			width: 100%;
 		}
@@ -450,7 +539,7 @@
 		}
 
 		.footer {
-			width:100%;
+			width: 100%;
 			font-size: 20rpx;
 		}
 
@@ -465,8 +554,8 @@
 		.el-input-group__append {
 			width: 50% !important;
 		}
-		
-		.home{
+
+		.home {
 			height: 100vh;
 		}
 

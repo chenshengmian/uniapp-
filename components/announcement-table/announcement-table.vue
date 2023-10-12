@@ -40,11 +40,11 @@
 		props: {
 			year: {
 				type: Number,
-				default: ''
+				default: 0
 			},
 			mouth: {
 				type: Number,
-				default: ''
+				default: 0
 			}
 		},
 		data() {
@@ -59,8 +59,8 @@
 				counttotal: 0,
 				currentPage: 1, // 当前页码
 				pageSize: 2, // 每页显示的条数
-				year: this.year,
-				mouth: this.mouth
+				// year: this.year,
+				// mouth: this.mouth
 			}
 		},
 		mounted() {
@@ -98,7 +98,7 @@
 				let _this = this
 				_this.$axios.get(
 						'/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.home.noticemes&page=' + _this
-						.currentPage + '&pagesize=' + _this.pageSize + '&year=' + Number(_this.year) + '&month=' + Number(_this.mouth))
+						.currentPage + '&pagesize=' + _this.pageSize + '&year=' + _this.year + '&month=' + _this.mouth)
 					.then(res => {
 						const {
 							result: {
@@ -106,10 +106,10 @@
 								total
 							}
 						} = res
-						console.log(res)
+						// console.log(res)
 						_this.tableData = list
 						_this.counttotal = Number(total)
-						console.log(total)
+						// console.log(total)
 					})
 					.catch(err => {
 						console.log(err)
@@ -121,7 +121,7 @@
 				await _this.$axios.get(
 						'/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.home.noticedetail&id=' + param.id)
 					.then(res => {
-						console.log(res)
+						// console.log(res)
 						const {
 							result: {
 								id,
@@ -135,7 +135,7 @@
 						_this.title = title
 						_this.detail = detail
 						_this.img = thumb
-						console.log(createtime)
+						// console.log(createtime)
 						_this.time = _this.timp(createtime)
 					})
 					.catch(err => {

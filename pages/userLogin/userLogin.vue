@@ -136,7 +136,7 @@
 							}
 							uni.setStorageSync('tokenArray', refid)
 							uni.navigateTo({
-								url: '/pages/index/index?maindisable=true'
+								url: '/pages/index/index'
 							})
 						} else {
 							const {

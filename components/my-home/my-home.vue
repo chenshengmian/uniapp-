@@ -30,7 +30,7 @@
 					<div class="fristcardbottomtwo">MYR    {{credit2}}</div>
 				</div>
 				<div style="margin-top: 20rpx;">
-					<el-button @tap="handleAdstatus" size="mini">查看协议</el-button>
+					<el-tag @tap="handleAdstatus">查看协议</el-tag>
 				</div>
 				<!-- <div>
 					<div class="fristcardbottom">Product Point (PP)</div> 
@@ -174,7 +174,7 @@
 					</div>
 				</div>
 				<announcement-table :year="year" :mouth='mouth'/>
-				<div class="lastcard">
+				<!-- <div class="lastcard">
 					<div style="font-size: 20rpx;font-weight: 600;">下载中心</div>
 					<div><a
 							href="https://ioffice.felement.vip/Content2/uploads/20230303091534FELEMENT-Distributors-Policy--Procedures.pdf">
@@ -196,7 +196,7 @@
 							href="https://ioffice.felement.vip/Content2/uploads/2023030309411520230214_Withholding-Tax-For-Agents.pdf">
 							WITHOLDING TAX FOR AGENTS
 						</a></div>
-				</div>
+				</div> -->
 			</el-card>
 		</div>
 	</view>
@@ -212,8 +212,8 @@
 		data() {
 			return {
 				avatarUrl: 'https://ioffice.felement.vip/Content/images/company/logo500.png',
-				mouth: '',
-				year: '',
+				mouth: 0,
+				year: 0,
 				yearArr: [],
 				joiningDate: '',
 				RetailBonus:'',
@@ -247,7 +247,7 @@
 				let _this = this
 				await _this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.infomes')
 					.then(res => {
-						console.log(res)
+						// console.log(res)
 						const {
 							result: {
 								jointime,
@@ -297,6 +297,7 @@
 	} */
 	.bonustype{
 		display: flex;
+		justify-content: space-between;
 	}
 	.lastcard {
 		font-size: 20rpx;
