@@ -39,11 +39,11 @@
 	export default {
 		props: {
 			year: {
-				type: String,
+				type: Number,
 				default: ''
 			},
 			mouth: {
-				type: String,
+				type: Number,
 				default: ''
 			}
 		},
@@ -70,10 +70,12 @@
 			year(n, o) {
 				// console.log(n,o)
 				this.year = n
+				this.getannoumn()
 			},
 			mouth(n, o) {
 				// console.log(n,o)
 				this.mouth = n
+				this.getannoumn()
 			}
 		},
 		methods: {
@@ -96,7 +98,7 @@
 				let _this = this
 				_this.$axios.get(
 						'/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.home.noticemes&page=' + _this
-						.currentPage + '&pagesize=' + _this.pageSize + '&year=' + Number(_this.year) + '&mouth=' + Number(_this.mouth))
+						.currentPage + '&pagesize=' + _this.pageSize + '&year=' + Number(_this.year) + '&month=' + Number(_this.mouth))
 					.then(res => {
 						const {
 							result: {

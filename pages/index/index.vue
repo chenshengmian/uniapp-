@@ -1,6 +1,18 @@
 <template>
 	<view class="content">
 		<el-container v-if="maindisable">
+			<el-dialog
+			  title="FELEMENT WHATSAPP & TELEGRAM 群主"
+			  :visible.sync="centerDialogVisible"
+			  :width="width"
+			  >
+			  <span>{{tanccontent}}</span>
+			  <span slot="footer" class="dialog-footer">
+			   <!-- <el-button @click="centerDialogVisible = false">取 消</el-button>-->
+			    <el-button type="primary" @click="changeads" size="mini">关闭弹窗不再显示</el-button> 
+			  </span>
+			</el-dialog>
+
 			<el-menu default-active="1-5-1" class="el-menu-vertical-demo asos" :collapse="isCollapse"
 				@select="handleSelect" style="height: 100vh;">
 				<image src="../../static/img/logo.png" alt="" v-if="disable" class="userLo"></image>
@@ -128,7 +140,7 @@
 				</div>
 				<el-main :style="{backgroundColor:baColr}">
 					<div v-if="index=='1'" style="width: 100%;">
-						<my-home/>
+						<my-home @changeAd = "getAdstatus"/>
 					</div>
 					<div v-else-if="index=='2-1'">
 						<wallet-records />
@@ -232,6 +244,7 @@
 		},
 		data() {
 			return {
+				centerDialogVisible:true,
 				isCollapse: false,
 				disable: true,
 				drawerVisible: false,
@@ -252,7 +265,9 @@
 				nodeid:'',
 				todatail:{},
 				maindisable:false,
-				username:''
+				username:'',
+				width:'30%',
+				tanccontent:''
 			}
 		},
 		onLoad(param) {
@@ -269,8 +284,26 @@
 			window.removeEventListener('resize', this.handleResize); // 移除监听事件
 		},
 		methods: {
+			getAdstatus(param){
+				// console.log(param)
+				this.centerDialogVisible = param
+			},
+			changeads(){
+				const { userinfo } =  uni.getStorageSync('tokenArray')
+				let _this = this
+				_this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.newAdstauts&userid='+userinfo)
+					.then(res=>{
+						console.log(res)
+						if(res.status==1){
+							_this.centerDialogVisible = false
+						}
+					})
+					.catch(err=>{
+						console.log(err)
+					})
+			},
 			getstatus(param){
-				console.log('主页状态',param)
+				// console.log('主页状态',param)
 				// if(param==100){
 				// 	self.maindisable = false
 				// }else{
@@ -283,25 +316,34 @@
 			},
 			login() {
 				let self = this
-				// this.$axios.post('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.account')
-				// 	.then(res => {
-				// 		console.log(res)
-				// 	})
-				// 	.catch(err => {
-				// 		console.log(err)
-				// 	})
+				this.$axios.post('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.agr')
+					.then(res => {
+						console.log('弹窗',res)
+						const { result:{agrcontent,content} } = res
+						self.tanccontent = agrcontent
+						
+					})
+					.catch(err => {
+						console.log(err)
+					})
 				this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member')
 					.then(res => {
-						console.log('登录状态',res)
+						// console.log('登录状态',res)
 						const {
 							status,
 							result: {
 								avatar,
-								nickname
+								nickname,
+								adstatus
 							}
 						} = res
 						self.username = nickname
 						// console.log('登录状态',res)
+						if(adstatus==0){
+							self.centerDialogVisible = false
+						}else{
+							self.centerDialogVisible = true
+						}
 						if(status==100){
 							self.maindisable = false
 						}else{
@@ -321,7 +363,7 @@
 					.then(res=>{
 						const { result } = res
 						uni.setStorageSync('data',result)
-						console.log('更新',result)
+						// console.log('更新',result)
 					})
 					.catch(err=>{
 						console.log(err)
@@ -364,7 +406,7 @@
 				}
 				this.$axios.post('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.account.logout', logof)
 					.then(res => {
-						console.log(res)
+						// console.log(res)
 						const {
 							status
 						} = res
@@ -426,6 +468,7 @@
 				this.screenWidth = window.innerWidth;
 				if (this.screenWidth <= 990) {
 					this.drawerSize = '60%'
+					this.width = '90%'
 				} else {
 					this.drawerSize = '15%'
 				}
@@ -437,6 +480,7 @@
 					console.log(newScreenWidth);
 					if (newScreenWidth <= 990) {
 						this.drawerSize = '60%'
+						this.width = '90%'
 					} else {
 						this.drawerSize = '15%'
 					}

@@ -29,6 +29,9 @@
 					<div class="fristcardbottom">Total Cash Point</div>
 					<div class="fristcardbottomtwo">MYR    {{credit2}}</div>
 				</div>
+				<div style="margin-top: 20rpx;">
+					<el-button @tap="handleAdstatus" size="mini">查看协议</el-button>
+				</div>
 				<!-- <div>
 					<div class="fristcardbottom">Product Point (PP)</div> 
 					<div class="fristcardbottomtwo">MYR 0.00</div>
@@ -86,7 +89,7 @@
 				<div style="font-size: 28rpx;font-weight: 500;color: #6F7078;">
 					Bonus Type (MYR)
 				</div>
-				<div class="container">
+				<!-- <div class="container">
 					<div class="box">
 						<div class="boxtwo">0.00</div>
 						<div class="fivetwo">Retail Bonus</div>
@@ -116,16 +119,30 @@
 						<div class="fivetwo">Diamond Millionaire Pool</div>
 					</div>
 				</div>
-				<div style="margin-top: 400rpx;color: #ADB5BD;">
-					<div style="display: flex;justify-content: center;font-size: 40rpx;font-weight: 800;">Retail Bonus
+				<div style="margin-top: 400rpx;color: #ADB5BD;"> -->
+					<!-- <div style="display: flex;justify-content: center;font-size: 40rpx;font-weight: 800;">Retail Bonus
 					</div>
 					<div style="display: flex;justify-content: center;font-size: 40rpx;">{{RetailBonus}}</div>
+				</div> -->
+				<div v-for="item in typesArray" style="color: #ADB5BD;font-size: 28rpx;margin-top: 20rpx;">
+					<div class="bonustype">
+						<div>{{item.levelname_en}}{{item.levelname}}:</div>
+						<div>{{item.bonus}}</div>
+					</div>
 				</div>
 			</el-card>
 			<el-card class="box-card sex">
 				<div style="font-size: 28rpx;font-weight: 500;color: #6F7078;">
 					Monthly Earnings (MYR)
 				</div>
+				<div v-for="item in weeksArray" style="color: #ADB5BD;font-size: 28rpx;margin-top: 20rpx;">
+					<div class="bonustype">
+						<div>{{item.begintimestr}}至{{item.endtimestr}}:</div>
+						<div>{{item.sumordermoney}}</div>
+					</div>
+				</div>
+				<div style="color: #ADB5BD;font-size: 28rpx;margin-top: 20rpx;">Total Cash Point:{{sumbonus}}</div>
+				<div style="color: #ADB5BD;font-size: 28rpx;margin-top: 20rpx;">Total Withdraw:{{totalWithdraw}}</div>
 			</el-card>
 
 
@@ -204,6 +221,10 @@
 				credit2:'',
 				registerPoint:'',
 				credit5:'',
+				typesArray:[],
+				weeksArray:[],
+				sumbonus:'',
+				totalWithdraw:''
 			};
 		},
 		mounted() {
@@ -211,6 +232,9 @@
 			this.getinfo()
 		},
 		methods: {
+			handleAdstatus(){
+				this.$emit('changeAd',true)
+			},
 			getMounth() {
 				const current = new Date()
 				const yearNew = current.getFullYear()
@@ -219,9 +243,9 @@
 				this.mouth = mouthNew + 1
 				this.year = yearNew
 			},
-			getinfo() {
+			async getinfo() {
 				let _this = this
-				_this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.infomes')
+				await _this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.infomes')
 					.then(res => {
 						console.log(res)
 						const {
@@ -234,6 +258,9 @@
 								credit1,
 								credit5,
 								flevelchildrennum,
+								allglobonus,
+								alllevelmes,
+								monthmes,
 								bonuslevelmes:{
 									bonus,
 									level,
@@ -243,11 +270,15 @@
 								}
 							}
 						} = res
+						_this.typesArray = alllevelmes
 						_this.joiningDate = jointime
 						_this.nickname = nickname
 						_this.credit2 = credit2
 						_this.registerPoint = credit1
 						_this.credit5 = credit5
+						_this.weeksArray = monthmes
+						_this.sumbonus = childrenordermoney
+						_this.totalWithdraw = allglobonus
 					})
 					.catch(err => {
 						console.log(err)
@@ -264,6 +295,9 @@
 	/* .grid-container .box-card{
 		padding: 20rpx;
 	} */
+	.bonustype{
+		display: flex;
+	}
 	.lastcard {
 		font-size: 20rpx;
 	}
@@ -415,6 +449,10 @@
 
 	/* 在屏幕宽度小于990px时 */
 	@media screen and (max-width: 990px) {
+		.bonustype{
+			display: grid;
+			grid-template-columns: 1fr;
+		}
 		.grid-container {
 			grid-template-columns: 100%;
 

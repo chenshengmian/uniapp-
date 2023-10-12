@@ -429,11 +429,13 @@
 		justify-content: center;
 		margin: 35rpx 0rpx;
 	}
-
+	
+	/* .el-carousel{
+		width: 100%;
+		padding-bottom: 50%;
+	} */
+	
 	@media screen and (max-width: 990px) {
-		/* .el-carousel{
-			height: 300rpx;
-		} */
 		.el-footer {
 			width: 100%;
 		}
