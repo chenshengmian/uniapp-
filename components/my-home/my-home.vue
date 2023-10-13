@@ -30,7 +30,8 @@
 					<div class="fristcardbottomtwo">MYR    {{credit2}}</div>
 				</div>
 				<div style="margin-top: 20rpx;">
-					<el-tag @tap="handleAdstatus">查看协议</el-tag>
+					<el-tag @tap="handleAdstatus(0)">查看协议</el-tag>
+					<el-tag @tap="handleAdstatus(1)" style="margin-left: 20rpx;">查看弹窗</el-tag>
 				</div>
 				<!-- <div>
 					<div class="fristcardbottom">Product Point (PP)</div> 
@@ -232,8 +233,13 @@
 			this.getinfo()
 		},
 		methods: {
-			handleAdstatus(){
-				this.$emit('changeAd',true)
+			handleAdstatus(type){
+				// console.log(type)
+				const array = {
+					'type' : type,
+					'ad':true
+				}
+				this.$emit('changeAd',array)
 			},
 			getMounth() {
 				const current = new Date()

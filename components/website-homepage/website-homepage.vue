@@ -129,7 +129,8 @@
 				imgt: '',
 				imgarr: [],
 				subtitles: [], // 字幕数组
-				currentIndex: 0 // 当前显示的字幕索引
+				currentIndex: 0 ,// 当前显示的字幕索引
+				interval:{}
 			};
 		},
 		mounted() {
@@ -141,17 +142,21 @@
 			this.getproundlist()
 		},
 		beforeDestroy() {
+			// console.log('清停')
+			this.clearSubtitleInterval()
 			window.removeEventListener('resize', this.handleResize); // 移除监听事件
 		},
 		methods: {
 			showSubtitles() {
 				let _this = this
-				setInterval(() => {
+				this.interval = setInterval(() => {
 					_this.currentIndex = (_this.currentIndex + 1) % _this.subtitles.length;
-					console.log(_this.currentIndex)
+					// console.log(_this.currentIndex)
 				}, 5000); // 设置滚动间隔时间
 			},
-
+			clearSubtitleInterval() {
+			    clearInterval(this.interval);
+			},
 			login() {
 				let _this = this
 				_this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member')
@@ -167,6 +172,8 @@
 					})
 			},
 			handlelogo() {
+				// console.log(11)
+				this.clearSubtitleInterval()
 				uni.navigateTo({
 					url: '/pages/userLogin/userLogin'
 				})

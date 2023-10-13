@@ -1,16 +1,12 @@
 <template>
 	<view class="content">
 		<el-container v-if="maindisable">
-			<el-dialog
-			  title="FELEMENT WHATSAPP & TELEGRAM 群主"
-			  :visible.sync="centerDialogVisible"
-			  :width="width"
-			  >
-			  <div style="height: 800rpx;overflow-y: scroll;">{{tanccontent}}</div>
-			  <span slot="footer" class="dialog-footer">
-			   <!-- <el-button @click="centerDialogVisible = false">取 消</el-button>-->
-			    <el-button type="primary" @click="changeads" size="mini">关闭弹窗不再显示</el-button> 
-			  </span>
+			<el-dialog title="FELEMENT WHATSAPP & TELEGRAM 群主" :visible.sync="centerDialogVisible" :width="width">
+				<div id="print"  style="height: 800rpx;overflow-y: scroll;">{{tanccontent}}</div>
+				<span slot="footer" class="dialog-footer">
+					<i class="el-icon-printer" @click="handleCustomButton" style="margin-right: 35rpx;margin-top: 20rpx;"></i> 
+					<el-button type="primary" @click="changeads" size="mini">关闭弹窗不再显示</el-button>
+				</span>
 			</el-dialog>
 
 			<el-menu default-active="1-5-1" class="el-menu-vertical-demo asos" :collapse="isCollapse"
@@ -35,17 +31,17 @@
 						<el-menu-item index="2-5">KYC</el-menu-item>
 					</el-menu-item-group>
 				</el-submenu>
-				<el-menu-item index="3">
+				<!-- <el-menu-item index="3">
 					<i class="el-icon-menu"></i>
 					<span slot="title">经销商注册</span>
-				</el-menu-item>
+				</el-menu-item> -->
 				<el-submenu index="4">
 					<template slot="title">
 						<i class="el-icon-s-fold"></i>
 						<span slot="title" v-if="disable">购物</span>
 					</template>
 					<el-menu-item-group>
-						<span slot="title">购物</span>
+						<!-- <span slot="title">购物</span> -->
 						<el-menu-item index="4-1">产品购买</el-menu-item>
 						<el-menu-item index="4-2">购买历史记录</el-menu-item>
 					</el-menu-item-group>
@@ -96,7 +92,7 @@
 												<i class="el-icon-user-solid"></i>更改登录密码
 											</el-dropdown-item>
 										</el-row>
-									</div>									
+									</div>
 									<div @tap="hanldeChangeEwalletspass">
 										<el-row>
 											<el-dropdown-item>
@@ -127,7 +123,7 @@
 					</div>
 				</el-header>
 				<el-drawer class="drawerright" :visible.sync="drawerVisibletwo" @close="handleDrawerClose"
-					title="Settings" :size="drawerSize" >
+					title="Settings" :size="drawerSize">
 					<!-- 在这里放置抽屉中的内容 -->
 					<p style="text-align: center;"><b>Choose Layouts</b></p>
 					<el-row><el-switch v-model="option1" @change="handleOptionChange('option1')"></el-switch><span>Light
@@ -140,7 +136,7 @@
 				</div>
 				<el-main :style="{backgroundColor:baColr}">
 					<div v-if="index=='1'" style="width: 100%;">
-						<my-home @changeAd = "getAdstatus"/>
+						<my-home @changeAd="getAdstatus" />
 					</div>
 					<div v-else-if="index=='2-1'">
 						<wallet-records />
@@ -155,16 +151,16 @@
 						<bonus-description />
 					</div>
 					<div v-else-if="index=='3'">
-						<reseller-registration :nodeid='nodeid' @handlereg="handlereg"/>
+						<reseller-registration :nodeid='nodeid' @handlereg="handlereg" />
 					</div>
 					<div v-else-if="index=='4-1'">
-						<product-purchase @godatail="getdatail"/>
+						<product-purchase @godatail="getdatail" />
 					</div>
 					<div v-else-if="index=='4-2'">
 						<purchase-history />
 					</div>
 					<div v-else-if="index=='4-3'">
-						<product-detail :todatail='todatail' @getresrt="newindex"/>
+						<product-detail :todatail='todatail' @getresrt="newindex" />
 					</div>
 					<div v-else-if="index=='5-1'">
 						<performance-reports />
@@ -173,19 +169,19 @@
 						<member-tree />
 					</div>
 					<div v-else-if="index=='6'">
-						<binary-tree @indexChange="getIndex"/>
+						<binary-tree @indexChange="getIndex" />
 					</div>
 					<div v-else-if="index=='7'">
-						<login-password/>
+						<login-password />
 					</div>
 					<div v-else-if="index=='8'">
-						<wallet-password/>
+						<wallet-password />
 					</div>
 					<div v-else-if="index=='9'">
-						<know-yourCustomer/>
+						<know-yourCustomer />
 					</div>
 					<div v-else-if="index=='10'">
-						<announcement-table/>
+						<announcement-table />
 					</div>
 				</el-main>
 				<el-footer :style="{backgroundColor:footbg}">
@@ -194,10 +190,10 @@
 			</el-container>
 		</el-container>
 		<div v-else style="display: flex;justify-content: center;width: 100%;background-color: #F5F5F5;">
-			<div class="homepage" >
-				<website-homepage @getstatus="getstatus"/>
+			<div class="homepage">
+				<website-homepage @getstatus="getstatus" />
 			</div>
-			
+
 		</div>
 	</view>
 </template>
@@ -244,7 +240,7 @@
 		},
 		data() {
 			return {
-				centerDialogVisible:true,
+				centerDialogVisible: true,
 				isCollapse: false,
 				disable: true,
 				drawerVisible: false,
@@ -261,13 +257,14 @@
 				hColr: '#FFFFFF',
 				footbg: '#FAFAFA',
 				topColor: '#FFFFFF',
-				drawbg:'#FFFFFF',
-				nodeid:'',
-				todatail:{},
-				maindisable:false,
-				username:'',
-				width:'30%',
-				tanccontent:''
+				drawbg: '#FFFFFF',
+				nodeid: '',
+				todatail: {},
+				maindisable: false,
+				username: '',
+				width: '30%',
+				tanccontent: '',
+				type:0
 			}
 		},
 		mounted(param) {
@@ -286,25 +283,55 @@
 			window.removeEventListener('resize', this.handleResize); // 移除监听事件
 		},
 		methods: {
-			getAdstatus(param){
-				// console.log(param)
-				this.centerDialogVisible = param
+			 handleCustomButton() {
+			    // 执行自定义按钮的操作
+				const content = document.getElementById("print");
+				console.log(content)
+				window.print(content)
 			},
-			changeads(){
-				const { userinfo } =  uni.getStorageSync('tokenArray')
-				let _this = this
-				_this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.newAdstauts&userid='+userinfo)
-					.then(res=>{
-						console.log(res)
-						if(res.status==1){
-							_this.centerDialogVisible = false
+			getAdstatus(param) {
+				// console.log(param)
+				const { type,ad } = param
+				let self = this
+				this.$axios.post('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.agr')
+					.then(res => {
+						// console.log('弹窗',type)
+						const {
+							result: {
+								agrcontent,
+								content
+							}
+						} = res
+						self.centerDialogVisible = true
+						if(type==0){
+							self.tanccontent = agrcontent
+						}else{
+							self.tanccontent = content
 						}
+				
 					})
-					.catch(err=>{
+					.catch(err => {
 						console.log(err)
 					})
 			},
-			getstatus(param){
+			changeads() {
+				const {
+					userinfo
+				} = uni.getStorageSync('tokenArray')
+				let _this = this
+				_this.$axios.get('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.newAdstauts&userid=' +
+						userinfo)
+					.then(res => {
+						console.log(res)
+						if (res.status == 1) {
+							_this.centerDialogVisible = false
+						}
+					})
+					.catch(err => {
+						console.log(err)
+					})
+			},
+			getstatus(param) {
 				// console.log('主页状态',param)
 				// if(param==100){
 				// 	self.maindisable = false
@@ -312,7 +339,7 @@
 				// 	self.maindisable = true
 				// }
 			},
-			newindex(param){
+			newindex(param) {
 				this.index = param
 				// console.log(param)
 			},
@@ -320,10 +347,19 @@
 				let self = this
 				this.$axios.post('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.agr')
 					.then(res => {
-						// console.log('弹窗',res)
-						const { result:{agrcontent,content} } = res
-						self.tanccontent = content
-						
+						// console.log('弹窗',type)
+						const {
+							result: {
+								agrcontent,
+								content
+							}
+						} = res
+						if(self.type==0){
+							self.tanccontent = agrcontent
+						}else{
+							self.tanccontent = content
+						}
+				
 					})
 					.catch(err => {
 						console.log(err)
@@ -341,14 +377,14 @@
 						} = res
 						self.username = nickname
 						// console.log('登录状态',res)
-						if(adstatus==0){
+						if (adstatus == 0) {
 							self.centerDialogVisible = false
-						}else{
+						} else {
 							self.centerDialogVisible = true
 						}
-						if(status==100){
+						if (status == 100) {
 							self.maindisable = false
-						}else{
+						} else {
 							self.maindisable = true
 						}
 						self.circleUrl = avatar
@@ -356,44 +392,55 @@
 					.catch(err => {
 						console.log(err)
 					})
-					
-				const { userinfo } = uni.getStorageSync('tokenArray')
+
+				const {
+					userinfo
+				} = uni.getStorageSync('tokenArray')
 				let array = {
-					'userid' : userinfo
+					'userid': userinfo
 				}
-				self.$axios.post('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.selectTree',array)
-					.then(res=>{
-						const { result } = res
-						uni.setStorageSync('data',result)
+				self.$axios.post('/plugin/index.php?i=1&f=guide&m=many_shop&d=mobile&r=uniapp.member.selectTree',
+						array)
+					.then(res => {
+						const {
+							result
+						} = res
+						uni.setStorageSync('data', result)
 						// console.log('更新',result)
 					})
-					.catch(err=>{
+					.catch(err => {
 						console.log(err)
 					})
 			},
-			handlereg(param){
+			handlereg(param) {
 				this.index = param
 			},
-			getdatail(res){
+			getdatail(res) {
 				// const lastarr = res[res.length -1]
 				// // console.log(lastarr)
-				const { id,index } = res
+				const {
+					id,
+					index
+				} = res
 				this.todatail = res
 				this.index = index
 			},
-			getIndex(data){
+			getIndex(data) {
 				// console.log(data)
-				const { index,nodeid } = data
+				const {
+					index,
+					nodeid
+				} = data
 				this.index = index
 				this.nodeid = nodeid
 			},
-			hanldeChangepass(){
+			hanldeChangepass() {
 				this.index = 7
 			},
-			hanldeChangeEwalletspass(){
+			hanldeChangeEwalletspass() {
 				this.index = 8
 			},
-			hanldeKYC(){
+			hanldeKYC() {
 				this.index = 9
 			},
 			logOff() {
@@ -424,8 +471,8 @@
 								message: message,
 								center: true
 							});
-							
-							
+
+
 							// self.maindisable = false
 							// uni.navigateTo({
 							// 	url: '/pages/userLogin/userLogin'
@@ -498,8 +545,9 @@
 					this.option1 = !this.option2; // 关闭选项1并开启选项2
 				}
 				this.option1 == true ? (this.baColr = '#F2F2F2', this.hColr = '#fff', this.footbg = '#FAFAFA', this
-					.topColor = '#fff',this.drawbg='#fff') : (this.baColr = '#1F2431', this.hColr = '#7A6FBE', this.footbg = '#323A4E',
-					this.topColor = '#7A6FBE',this.drawbg='#2A3142')
+					.topColor = '#fff', this.drawbg = '#fff') : (this.baColr = '#1F2431', this.hColr = '#7A6FBE', this
+					.footbg = '#323A4E',
+					this.topColor = '#7A6FBE', this.drawbg = '#2A3142')
 			},
 			handleSelect(index) {
 				// console.log(index);
@@ -512,6 +560,7 @@
 </script>
 
 <style>
+
 	.colorb {
 		background-color: #7F7F7F;
 	}
@@ -601,19 +650,22 @@
 	}
 
 	@media screen and (max-width: 1400px) {
-		.userLo{
+		.userLo {
 			width: 70%;
 		}
 	}
+
 	@media screen and (max-width: 990px) {
-		.el-header{
+		.el-header {
 			height: 120rpx !important;
 			/* position: fixed; */
 			/* top:0; */
 		}
-		.homepage{
+
+		.homepage {
 			width: 100% !important;
 		}
+
 		.changeStatu {
 			display: none;
 		}
@@ -665,8 +717,8 @@
 			font-size: 20rpx;
 		}
 	}
-	
-	.homepage{
+
+	.homepage {
 		width: 80%;
 		height: 100vh;
 	}
@@ -697,7 +749,8 @@
 		position: fixed;
 		background-color: #fff;
 	}
-	.el-header{
+
+	.el-header {
 		height: 120rpx;
 	}
 
@@ -707,20 +760,26 @@
 		font-size: 26rpx;
 		color: rgb(91, 98, 107);
 	}
+
 	/* 设置滚动条的轨道样式 */
 	::-webkit-scrollbar {
-	  width: 8px; /* 滚动条宽度 */
+		width: 8px;
+		/* 滚动条宽度 */
 	}
-	
+
 	/* 设置滚动条的滑块样式 */
 	::-webkit-scrollbar-thumb {
-	  background-color: #409EFF; /* 滑块背景颜色 */
-	  border-radius: 4px; /* 滑块圆角 */
+		background-color: #409EFF;
+		/* 滑块背景颜色 */
+		border-radius: 4px;
+		/* 滑块圆角 */
 	}
-	
+
 	/* 设置滚动条的滑道样式 */
 	::-webkit-scrollbar-track {
-	  background-color: #f1f1f1; /* 滑道背景颜色 */
-	  border-radius: 4px; /* 滑道圆角 */
+		background-color: #f1f1f1;
+		/* 滑道背景颜色 */
+		border-radius: 4px;
+		/* 滑道圆角 */
 	}
 </style>
