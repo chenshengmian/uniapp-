@@ -1,0 +1,168 @@
+
+.colorb {
+	background-color: #7F7F7F;
+}
+.placeholder {
+	width: 400rpx;
+	height: 100vh;
+	visibility: hidden;
+	/* 或者使用 opacity: 0; */
+}
+.newplaceholder {
+	width: 128rpx;
+	height: 100vh;
+	visibility: hidden;
+	/* 或者使用 opacity: 0; */
+}
+.fullsc,
+.setting {
+	font-size: 50rpx;
+	margin-right: 20rpx;
+	color: #000;
+	margin-top: 20rpx;
+}
+.el-dropdown-link {
+	cursor: pointer;
+	color: #409EFF;
+}
+.setting {
+	margin-left: 20rpx;
+	display: inline-block;
+	-webkit-animation: rotation 2s infinite linear;
+	        animation: rotation 2s infinite linear;
+}
+.drawerright {
+	font-weight: 1000;
+}
+@-webkit-keyframes rotation {
+from {
+		-webkit-transform: rotate(0deg);
+		        transform: rotate(0deg);
+}
+to {
+		-webkit-transform: rotate(360deg);
+		        transform: rotate(360deg);
+}
+}
+@keyframes rotation {
+from {
+		-webkit-transform: rotate(0deg);
+		        transform: rotate(0deg);
+}
+to {
+		-webkit-transform: rotate(360deg);
+		        transform: rotate(360deg);
+}
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+	width: 400rpx;
+	min-height: 800rpx;
+}
+.userLogo {
+	margin-left: 10rpx;
+	padding: 30rpx;
+	width: 110rpx;
+	height: 110rpx;
+}
+.userLo {
+	padding: 22rpx;
+	width: 90%;
+	height: 80rpx;
+	margin-left: 20rpx;
+	margin-top: 18rpx;
+}
+.el-switch {
+	margin-left: 25rpx;
+}
+.el-row ._span {
+	display: inline-block;
+	margin-top: 20rpx;
+	margin-left: 20rpx;
+}
+.changeStatu,
+.changeStatuw {
+	font-size: 45rpx;
+	margin-top: 30rpx;
+	cursor: pointer;
+}
+@media screen and (max-width: 1400px) {
+.userLogo{
+		width: 70%;
+}
+}
+@media screen and (max-width: 990px) {
+.changeStatu {
+		display: none;
+}
+.changeStatuw {
+		display: block !important;
+}
+.asos,
+	.fullsc,
+	.placeholder {
+		display: none;
+}
+.changeStatus1 {
+		display: block !important;
+		font-size: 50rpx;
+		margin-top: 30rpx;
+		cursor: pointer;
+		width: 100%;
+}
+.smalllogo {
+		width: 60rpx;
+		height: 60rpx;
+}
+.atvatr {
+		width: 84%;
+		left: 0rpx;
+}
+.ableta {
+		position: fixed;
+		width: 400rpx;
+		top: 100rpx;
+		margin-top: 20rpx;
+		z-index: 99;
+}
+.newplaceholder {
+		width: 0rpx;
+		height: 100vh;
+		visibility: hidden;
+		/* 或者使用 opacity: 0; */
+}
+.footer {
+		font-size: 20rpx;
+}
+}
+.changeStatus1,
+.changeStatuw {
+	display: none;
+}
+.el-main {
+	height: 86vh;
+	/* position: absolute; */
+	top: 100rpx;
+	z-index: 1;
+	/* width: 100%; */
+}
+.el-menu {
+	position: fixed;
+	/* right: 400rpx; */
+}
+.conent {
+	/* position: fixed; */
+}
+.headerTop {
+	display: flex;
+	/* z-index: 9999; */
+	/* width: 100%; */
+	position: fixed;
+	background-color: #fff;
+}
+.footer {
+	line-height: 120rpx;
+	text-align: center;
+	font-size: 26rpx;
+	color: rgb(91, 98, 107);
+}
+

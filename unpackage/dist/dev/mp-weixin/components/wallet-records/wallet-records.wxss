@@ -1,0 +1,58 @@
+
+.gird-contails {
+	display: grid;
+	grid-template-columns: 100%;
+}
+.card-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+.text {
+	font-size: 14px;
+}
+.item {
+	margin-bottom: 18px;
+}
+.el-input__suffix-inner {
+	display: none !important;
+}
+.mony {
+	display: grid;
+	grid-template-columns: 840rpx 2374rpx;
+	margin-top: 10rpx;
+}
+.datamonth {
+	display: grid;
+	grid-template-columns: 840rpx 1190rpx 1190rpx;
+	margin-top: 10rpx;
+}
+.sumbit {
+	margin-left: 840rpx;
+	margin-top: 10rpx;
+}
+.el-select {
+	width: 100%;
+}
+
+/* 在屏幕宽度小于990px时 */
+@media screen and (max-width: 990px) {
+.mony {
+		display: grid;
+		grid-template-columns: 1fr;
+		margin-top: 10rpx;
+}
+.datamonth {
+		display: grid;
+		grid-template-columns: 1fr;
+		margin-top: 10rpx;
+}
+.sumbit {
+		margin-left: 0rpx;
+		margin-top: 10rpx;
+}
+._table {
+		width: auto !important;
+}
+}
+

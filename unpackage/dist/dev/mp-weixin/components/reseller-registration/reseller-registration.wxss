@@ -1,0 +1,36 @@
+
+.dome {
+	display: flex;
+	/* justify-content: space-between; */
+}
+.text {
+	font-size: 26rpx;
+}
+.item {
+	padding: 36rpx 0;
+}
+.resgister {
+	display: flex;
+	justify-content: center;
+}
+.el-form-item__label{
+	width: 100% !important;
+}
+/* 在屏幕宽度小于990px时 */
+@media screen and (max-width: 990px) {
+.el-form-item{
+		display: flex;
+		flex-wrap: wrap;
+}
+.el-form .el-form-item__label{
+		width: auto !important;
+}
+.el-form-item__content{
+		margin-left: 0rpx;
+}
+	/* .email{
+		display: grid !important;
+		grid-template-columns: 1fr;
+	} */
+}
+

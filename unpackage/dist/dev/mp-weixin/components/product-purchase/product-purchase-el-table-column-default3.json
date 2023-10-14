@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "product-purchase-el-table-column-default": "/components/product-purchase/product-purchase-el-table-column-default",
+    "product-purchase-el-table-column-default1": "/components/product-purchase/product-purchase-el-table-column-default1",
+    "product-purchase-el-table-column-default2": "/components/product-purchase/product-purchase-el-table-column-default2",
+    "product-purchase-el-table-column-default3": "/components/product-purchase/product-purchase-el-table-column-default3"
+  }
+}

@@ -1,0 +1,1 @@
+<block wx:for="{{scope.row.thumb_url}}" wx:for-item="item" wx:for-index="__i0__"><block><image src="{{item}}" width="50" height="50" class="_img"></image></block></block>

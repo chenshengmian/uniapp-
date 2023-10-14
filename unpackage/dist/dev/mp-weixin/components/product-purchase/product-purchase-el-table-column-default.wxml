@@ -1,0 +1,1 @@
+<image src="{{scope.row.thumb}}" width="50" height="50" class="_img"></image>

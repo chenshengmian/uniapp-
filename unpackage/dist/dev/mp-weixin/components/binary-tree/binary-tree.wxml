@@ -1,0 +1,1 @@
+<view><el-card class="box-card" vue-id="4e97a228-1" bind:__l="__l" vue-slots="{{['default']}}"><l-echart class="vue-ref" style="height:78vh;" vue-id="{{('4e97a228-2')+','+('4e97a228-1')}}" data-ref="chart" bind:__l="__l"></l-echart></el-card></view>

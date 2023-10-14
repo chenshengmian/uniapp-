@@ -1,0 +1,18 @@
+
+.Report {
+	font-size: 26rpx;
+	display: flex;
+	justify-content: space-around;
+	text-align: center;
+}
+.el-row {
+	font-size: 26rpx;
+	margin-top: 20rpx;
+}
+@media screen and (max-width:990px) {
+.Report {
+		display: grid;
+		grid-template-columns: 1fr;
+}
+}
+
